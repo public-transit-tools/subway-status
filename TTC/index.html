@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="branch-name" content="__BRANCH_NAME__" />
   <title>TTC Reduced Speed Zone Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -24,10 +25,10 @@
       <h2>Information & Filters</h2>
 
       <div class="filter-group">
-        <h3>Filter by Line (Placeholder)</h3>
-        <label><input type="checkbox" name="line1" checked /> Line 1</label>
-        <label><input type="checkbox" name="line2" checked /> Line 2</label>
-        <label><input type="checkbox" name="line4" checked /> Line 4</label>
+        <h3>Filter by Line</h3>
+        <button class="filter-btn active" data-line="Line 1">Line 1</button>
+        <button class="filter-btn active" data-line="Line 2">Line 2</button>
+        <button class="filter-btn active" data-line="Line 4">Line 4</button>
       </div>
 
       <h3>Active Reduced Speed Zones</h3>

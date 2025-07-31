@@ -1,8 +1,15 @@
 let map; // Make map globally accessible for functions
 const geoJsonLayers = {}; // To store references to GeoJSON layers for filtering
+let branchName; // To store the branch name
 
 // Sidebar toggle logic
 document.addEventListener("DOMContentLoaded", function () {
+  // Get branch name from meta tag
+  const branchNameMeta = document.querySelector('meta[name="branch-name"]');
+  if (branchNameMeta) {
+    branchName = branchNameMeta.getAttribute('content');
+    console.log(`Branch name: ${branchName}`);
+  }
   const aside = document.querySelector("aside");
   const toggleBtn = document.getElementById("sidebarToggle");
   let collapsed = localStorage.getItem("sidebarCollapsed") === "true";
@@ -25,13 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     aside.classList.toggle("aside-collapsed", collapsed);
     toggleBtn.innerText = collapsed ? "»" : "«";
     localStorage.setItem("sidebarCollapsed", collapsed);
-    // Show reopen button if collapsed and toggle is not visible
-    const toggleRect = toggleBtn.getBoundingClientRect();
-    if (collapsed && (toggleRect.left < 0 || toggleRect.right < 0 || toggleRect.width === 0 || toggleBtn.offsetParent === null)) {
-      reopenBtn.style.display = "block";
-    } else {
-      reopenBtn.style.display = "none";
-    }
+    reopenBtn.style.display = collapsed ? "block" : "none";
   }
 
   toggleBtn.addEventListener("click", function () {
@@ -110,7 +111,7 @@ function drawLineGeoJson(geojson, lineKey) {
     "Line 2": "rgba(0,146,63,0.4)",
     "Line 4": "rgba(162,26,104,0.4)"
   };
-  L.geoJSON(geojson, {
+  const layer = L.geoJSON(geojson, {
     filter: f => f.properties.type === "tracks" || f.properties.type === "rsz",
     style: f => {
       if (f.properties.type === "rsz") {
@@ -150,7 +151,10 @@ function drawLineGeoJson(geojson, lineKey) {
         }, layer);
       }
     }
-  }).addTo(map);
+  });
+
+  geoJsonLayers[lineKey] = layer;
+  layer.addTo(map);
 }
 
 // Add a zone to the sidebar list
@@ -169,26 +173,19 @@ function addZoneToList(feature, layer) {
 // Initialize the map when the DOM is ready
 document.addEventListener("DOMContentLoaded", initMap);
 
-// Basic Filter Logic (Placeholder - needs more work for actual filtering)
-// This is a very simplified example. Real filtering would involve
-// removing/adding layers or changing their styles.
-document
-  .querySelectorAll('.filter-group input[type="checkbox"]')
-  .forEach((checkbox) => {
-    checkbox.addEventListener("change", () => {
-      // For now, just log. Actual filtering is more complex.
-      console.log(
-        `Filter for ${checkbox.name} changed to ${checkbox.checked}`
-      );
-      // To implement actual filtering, you'd need to:
-      // 1. Iterate through your geoJsonLayers.speedZones.getLayers()
-      // 2. Check feature.properties.line against the checkbox states
-      // 3. Either remove/add the layer from the map, or change its style to hide/show it.
-      // This can get complex if you have many layers or complex filter criteria.
-      // A simpler approach for this prototype might be to re-fetch/re-render
-      // based on filter criteria if your dataset is small.
-      alert(
-        "Filter functionality is a placeholder in this prototype."
-      );
-    });
-  }); 
+// Filter Logic
+document.querySelectorAll('.filter-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const line = button.dataset.line;
+    button.classList.toggle('active');
+    const isActive = button.classList.contains('active');
+
+    if (geoJsonLayers[line]) {
+      if (isActive) {
+        map.addLayer(geoJsonLayers[line]);
+      } else {
+        map.removeLayer(geoJsonLayers[line]);
+      }
+    }
+  });
+});
