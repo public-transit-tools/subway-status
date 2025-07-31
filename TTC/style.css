@@ -63,6 +63,10 @@ main {
 }
 
 aside {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
   width: var(--sidebar-width);
   background-color: var(--aside-bg);
   padding: var(--sidebar-padding);
@@ -71,7 +75,18 @@ aside {
   box-shadow: var(--aside-shadow);
   transition: width 0.3s cubic-bezier(0.4,0,0.2,1), min-width 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1);
   min-width: var(--sidebar-width-collapsed);
-  position: relative;
+}
+
+#legend {
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+  z-index: 1000;
+  background: var(--aside-bg);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--aside-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .aside-collapsed {
