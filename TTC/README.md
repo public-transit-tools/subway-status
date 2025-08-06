@@ -1,1 +1,0 @@
-# ttc-rsz-map
