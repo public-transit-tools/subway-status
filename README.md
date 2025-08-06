@@ -12,6 +12,26 @@ As of now, the only supported system is the Toronto Transit Commission (TTC).
 ### System Subdomains
 Each supported subway system has its own dedicated subdomain, offering detailed, system-specific status, maps, and features.
 Example: ttc.subwaystatus.com
+
+## Vercel Deployment
+This project contains two separate applications that can be deployed to Vercel:
+- **Landing Page**: The main informational site.
+- **TTC App**: The application for the Toronto Transit Commission.
+
+To deploy these applications on Vercel, you will need to create two separate projects in your Vercel dashboard and configure the "Root Directory" for each.
+
+### Landing Page Deployment
+1. Create a new project in Vercel and connect it to your Git repository.
+2. In the project settings, set the **Root Directory** to `Landing Page`.
+3. Vercel will automatically detect that it is a static site. No framework preset is needed.
+4. Deploy the project. This will be your main domain (e.g., `subwaystatus.com`).
+
+### TTC App Deployment
+1. Create a second project in Vercel and connect it to the same Git repository.
+2. In the project settings, set the **Root Directory** to `TTC`.
+3. Vercel will automatically detect that it is a static site. No framework preset is needed.
+4. Deploy the project. You should assign a subdomain to this project (e.g., `ttc.subwaystatus.com`).
+
 ## Vision & Future Plans
 Scalable: The platform is designed to easily add more subway systems from cities around the world.
 User-Focused: Simple, fast, and mobile-friendly design for quick access to essential information.
