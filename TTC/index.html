@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TTC Reduced Speed Zone Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body>
+  <header>
+    <h1>TTC Reduced Speed Zone Tracker</h1>
+    <!-- Future nav links can go here -->
+  </header>
+
+  <main>
+    <aside>
+      <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">«</button>
+      <h2>Information & Filters</h2>
+
+      <div class="filter-group">
+        <h3>Filter by Line (Placeholder)</h3>
+        <label><input type="checkbox" name="line1" checked /> Line 1</label>
+        <label><input type="checkbox" name="line2" checked /> Line 2</label>
+        <label><input type="checkbox" name="line4" checked /> Line 4</label>
+      </div>
+
+      <h3>Active Reduced Speed Zones</h3>
+      <ul id="active-zones-list">
+        <!-- Zones will be populated by JavaScript -->
+        <li>Loading zones...</li>
+      </ul>
+
+    </aside>
+
+    <div id="map-container">
+      <div id="map"></div>
+      <div id="legend">
+        <h3>Legend</h3>
+        <div class="legend-content">
+          <div class="legend-item">
+            <span class="legend-line legend-line1-regular"></span>
+            <span>Line 1 (Regular)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line legend-line1-rsz"></span>
+            <span>Line 1 (Reduced Speed Zone)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line legend-line2-regular"></span>
+            <span>Line 2 (Regular)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line legend-line2-rsz"></span>
+            <span>Line 2 (Reduced Speed Zone)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line legend-line4-regular"></span>
+            <span>Line 4 (Regular)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line legend-line4-rsz"></span>
+            <span>Line 4 (Reduced Speed Zone)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      Data based on publicly available information and subject to change.
+    </p>
+    <p>
+      This is an unofficial tool. Always refer to official
+      <a href="https://www.ttc.ca" target="_blank" rel="noopener noreferrer">TTC sources</a>
+      for the latest updates.
+    </p>
+    <p>&copy; 2025 Sam Greenwood</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
