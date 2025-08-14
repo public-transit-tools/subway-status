@@ -1,56 +1,43 @@
-## Subway Status
+# SubwayStatus.com
+SubwayStatus.com is a platform designed to provide clear, up-to-date information about subway systems around the world. The project aims to make it easy for riders to check the status of their local subway network, including service changes, slow zones, and other important updates, all in a simple and modern interface.
 
-Tools for viewing the status of subway networks, focused on clear, lightweight, static web apps.
+## Project Structure
+### Landing Page
+The main site (subwaystatus.com) serves as a welcoming landing page, introducing the project and its mission.
+It provides a central place for users to discover which subway systems are currently supported.
+### Network List
+The "Networks" page lists all subway systems available on the platform.
+Each system is accessible via its own subdomain (e.g., ttc.subwaystatus.com for Toronto's TTC).
+As of now, the only supported system is the Toronto Transit Commission (TTC).
+### System Subdomains
+Each supported subway system has its own dedicated subdomain, offering detailed, system-specific status, maps, and features.
+Example: ttc.subwaystatus.com
 
-This repo currently includes a prototype for the Toronto Transit Commission (TTC) showing Reduced Speed Zones (RSZ) on an interactive map, plus a simple landing page that can list multiple systems.
+## Vercel Deployment
+This project contains two separate applications that can be deployed to Vercel:
+- **Landing Page**: The main informational site.
+- **TTC App**: The application for the Toronto Transit Commission.
 
-### Live
-- TTC RSZ: `https://ttc.subwaystatus.com`
+To deploy these applications on Vercel, you will need to create two separate projects in your Vercel dashboard and configure the "Root Directory" for each.
 
-### Project structure
-- `Landing Page/`: Minimal homepage and networks list
-  - `index.html`: Welcome page
-  - `networks.html`: Links to available systems (currently TTC)
-- `TTC/`: TTC Reduced Speed Zone tracker
-  - `index.html`: Leaflet map UI
-  - `script.js`: Map logic, loads GeoJSON, renders lines and RSZ segments
-  - `lines/line1.json`, `lines/line2.json`, `lines/line4.json`: Static data for TTC Lines 1, 2, and 4 (including RSZ features)
-  - `style.css`: Page styles
+### Landing Page Deployment
+1. Create a new project in Vercel and connect it to your Git repository.
+2. In the project settings, set the **Root Directory** to `Landing Page`.
+3. Vercel will automatically detect that it is a static site. No framework preset is needed.
+4. Deploy the project. This will be your main domain (e.g., `subwaystatus.com`).
 
-### Features (TTC RSZ)
-- Interactive Leaflet map centered on Toronto
-- Renders Lines 1, 2, and 4 with official colors
-- Highlights Reduced Speed Zone segments and lists them in a sidebar
-- Popups show line, direction, station-to-station span, speed, and reason
-- Basic line filter UI scaffold (placeholder for future functionality)
+### TTC App Deployment
+1. Create a second project in Vercel and connect it to the same Git repository.
+2. In the project settings, set the **Root Directory** to `TTC`.
+3. Vercel will automatically detect that it is a static site. No framework preset is needed.
+4. Deploy the project. You should assign a subdomain to this project (e.g., `ttc.subwaystatus.com`).
 
-### Run locally
-This is a static site. To avoid browser restrictions on `fetch` from the local file system, serve the repo via a local HTTP server and open the pages through `http://`.
+## Vision & Future Plans
+Scalable: The platform is designed to easily add more subway systems from cities around the world.
+User-Focused: Simple, fast, and mobile-friendly design for quick access to essential information.
+Open Data: Where possible, the project uses open data sources and aims to be transparent about data origins.
+Community-Driven: Contributions and suggestions for new systems or features are welcome.
+## Contributing
+If you are interested in helping expand SubwayStatus.com to support more cities or want to improve the landing/network list experience, feel free to open an issue or submit a pull request.
 
-From the repo root:
-
-Option A — Python 3
-```bash
-python -m http.server 5500
-# then open: http://localhost:5500/Landing%20Page/index.html
-# or directly: http://localhost:5500/TTC/index.html
-```
-
-Option B — Node.js
-```bash
-npx serve . -l 5500 --single
-# then open: http://localhost:5500/Landing%20Page/index.html
-# or directly: http://localhost:5500/TTC/index.html
-```
-
-### Data
-- TTC data in this prototype is static and lives in `TTC/lines/*.json`.
-- RSZ segments are encoded as GeoJSON features with `properties.type === "rsz"` and attributes like `start_station`, `end_station`, `direction`, `speed_kph`, and `reason`.
-
-### Development notes
-- No build step; dependencies (Leaflet) are loaded from CDNs in `TTC/index.html`.
-- Styling is plain CSS; no frameworks.
-- To add another system, create a new directory at the repo root, add your static app there, and link to it from `Landing Page/networks.html`.
-
-### Disclaimer
-This is an unofficial tool and not affiliated with the TTC. Data is based on publicly available information and may be incomplete or out of date. Always refer to official TTC sources for the latest updates.
+SubwayStatus.com is an independent project and is not affiliated with any transit agency. Always refer to official sources for the most current information.
