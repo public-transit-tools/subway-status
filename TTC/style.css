@@ -28,12 +28,6 @@
   --zone-border: light-dark(#eee, #444);
   --zone-strong: #2c3e50;
   --zone-span: #7f8c8d;
-  
-  /* Z-index scale */
-  --z-map: 100;
-  --z-legend: 1000;
-  --z-sidebar: 1100;
-  --z-sidebar-toggle: 1200;
 }
 
 body,
@@ -62,74 +56,23 @@ header h1 {
 }
 
 main {
+  display: flex;
   flex: 1;
   overflow: hidden;
-  position: relative;
   container-type: inline-size;
 }
 
 aside {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: var(--z-sidebar);
   width: var(--sidebar-width);
-  max-width: calc(100vw - 2rem);
   background-color: var(--aside-bg);
   padding: var(--sidebar-padding);
   overflow-y: auto;
-  border: 1px solid var(--aside-border);
-  border-radius: 8px;
+  border-right: 1px solid var(--aside-border);
   box-shadow: var(--aside-shadow);
   transition: width 0.3s cubic-bezier(0.4,0,0.2,1), min-width 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1);
   min-width: var(--sidebar-width-collapsed);
-  max-height: calc(100vh - 2rem);
+  position: relative;
 }
-
-#legend {
-  position: absolute;
-  bottom: 2rem;
-  left: 1rem;
-  z-index: var(--z-legend);
-  background: var(--aside-bg);
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--aside-border);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  max-width: calc(100vw - 2rem);
-}
-
-#legend h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: var(--zone-strong);
-}
-
-.legend-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.legend-line {
-  display: inline-block;
-  width: 24px;
-  height: 6px;
-  border-radius: 1px;
-}
-
-.legend-line1-regular { background: rgba(248,195,0,0.4); }
-.legend-line1-rsz { background: #F8C300; }
-.legend-line2-regular { background: rgba(0,146,63,0.4); }
-.legend-line2-rsz { background: #00923F; }
-.legend-line4-regular { background: rgba(162,26,104,0.4); }
-.legend-line4-rsz { background: #A21A68; }
 
 .aside-collapsed {
   width: 40px !important;
@@ -163,7 +106,7 @@ aside {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: var(--z-sidebar-toggle);
+  z-index: 10;
   transition: background 0.2s;
 }
 .sidebar-toggle:hover,
@@ -220,17 +163,13 @@ aside h3 {
 }
 
 #map-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  flex: 1;
+  position: relative;
 }
 
 #map {
   height: 100%;
   width: 100%;
-  z-index: var(--z-map);
 }
 
 footer {
@@ -273,7 +212,7 @@ footer a:focus-visible {
   justify-content: center;
   font-size: 1.5rem;
   cursor: pointer;
-  z-index: var(--z-sidebar-toggle);
+  z-index: 1200;
   transition: background 0.2s, box-shadow 0.2s;
   pointer-events: auto;
 }
@@ -284,59 +223,28 @@ footer a:focus-visible {
   box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 }
 
-/* Responsive Design */
+/* Responsive Design: fallback for browsers without container queries */
 @media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
   aside {
-    top: 0.5rem;
-    right: 0.5rem;
-    left: 0.5rem;
-    width: auto;
-    max-width: none;
+    width: 100% !important;
     max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid var(--aside-border);
+    min-width: 0;
+    padding: var(--sidebar-padding) !important;
   }
-  
-  #legend {
-    bottom: 0.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
-    max-width: none;
+  .aside-collapsed {
+    width: 40px !important;
+    min-width: 40px !important;
+    padding: 0 !important;
   }
-  
-  .legend-content {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .legend-item {
-    flex: 1;
-    min-width: fit-content;
-  }
-  
-  .legend-item span:last-child {
-    font-size: 0.8rem;
-  }
-  
   header h1 {
     font-size: 1.1rem;
   }
+  #map-container {
+    height: 60vh;
+  }
 }
-
-@media (max-width: 480px) {
-  .legend-content {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  
-  .legend-item span:last-child {
-    font-size: 0.75rem;
-  }
-  
-  #legend {
-    padding: 0.4rem 0.8rem;
-  }
-  
-  aside {
-    padding: 0.8rem;
-  }
-}mo
