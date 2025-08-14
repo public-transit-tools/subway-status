@@ -1,3 +1,8 @@
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?logo=leaflet&logoColor=white)](https://leafletjs.com/)
+
 # SubwayStatus.com
 SubwayStatus.com is a platform designed to provide clear, up-to-date information about subway systems around the world. The project aims to make it easy for riders to check the status of their local subway network, including service changes, slow zones, and other important updates, all in a simple and modern interface.
 
@@ -41,3 +46,20 @@ Community-Driven: Contributions and suggestions for new systems or features are 
 If you are interested in helping expand SubwayStatus.com to support more cities or want to improve the landing/network list experience, feel free to open an issue or submit a pull request.
 
 SubwayStatus.com is an independent project and is not affiliated with any transit agency. Always refer to official sources for the most current information.
+
+## React App (Vite)
+There is a React implementation under `react-app/` mirroring the Landing, Networks, and TTC pages with Leaflet.
+
+Run locally:
+
+1. `cd react-app`
+2. `npm i`
+3. `npm run dev`
+
+Build:
+
+- `npm run build` then `npm run preview`
+
+TTC data:
+
+- Copy `TTC/lines/line1.json`, `line2.json`, `line4.json` into `react-app/public/ttc/lines/` to render the lines on the TTC map.
